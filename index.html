@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+    <title>Public Transport Directions</title>
+    <link rel="stylesheet" type="text/css" href="./style_darkMode.css" /> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <?php
+    header("Access-Control-Allow-Origin: *");
+    ?>
+    <div id="flexContainer">
+        <span id="date"></span>
+        <span class="fi fi-at"></span>
+        <span id="atclock"></span>
+        <span class="fi fi-in"></span>
+        <span id="istclock"></span>
+    </div>
+    
+    <!-- Analogue Clock -->
+        
+    <label class="switch">
+        <input type="checkbox">
+        <span class="slider round" onclick="toggleClock()"></span>
+    </label>
+    <div id="splitDiv">
+        <div id="clockDiv">
+            <div id="clockContainer">
+                <div id="hour"></div>
+                <div id="minute"></div>
+                <div id="second"></div>
+            </div>
+            ....................................
+            <div id="clockContainer">
+                <div id="in_hour"></div>
+                <div id="in_minute"></div>
+                <div id="in_second"></div>
+            </div>            
+        </div>
+        <div id="clockDiv">
+            <span class="fi fi-at"></span>
+            <span class="fi fi-in"></span>
+        </div>
+    </div>
+    
+    <!-- Analogue Clock -->
+    
+    <div id="container">        
+        <div id="left">
+            <div id="searchDiv">
+                <a onclick="homeLocation()"><i class="fa fa-home"></i></a>
+                <input type="text" id="destination" placeholder="Enter destination location">
+                <a id="directionclick"><i class="fa fa-search"></i></a>
+            </div>
+            <div id="frequentDestination"> <!-- Add frequent destinations here -->                
+                <p>AC2T</p>
+                <p>Alaudagasse</p>
+                <p>Meidling</p>
+                <p>Troststraße-U</p>
+                <p>Wien Hbf</p>
+                <p>Wiener Neustadt</p>                
+            </div>
+            <div id="suggestions"></div> <!-- Display suggestions here -->
+            <iframe id="mapFrame"></iframe> <!-- Display map here -->
+            <div id="directionsPanel"></div> <!-- Display directions here -->
+        </div>
+        <div id="right">
+            <div  id="flexContainer">
+                <button id="btn">Energy Data (Graph)</button>
+                <button id="btn2">Energy Data (Website)</button>
+            </div>
+            
+            <div id="energy">
+                <canvas id="myChart" style="width: 100%; max-width: 750px;"></canvas>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round" onclick="toggleChart()"></span>
+                </label>
+            </div>
+            <iframe src="https://smartmeter-web.wienernetze.at/#/verbrauchsdarstellung?iframe-div=primary-container" id="smartMeterFrame" scrolling="yes"></iframe>
+            <div id="energy2">
+                
+            </div>
+                
+               
+            <div id="nearestDepartures">
+                <div id="bus1">
+                    <a id="busNum"></a>
+                    <a id="busName"></a>
+                    <a id="busTime"></a>
+                    <a id="busTime2"></a>
+                </div>
+                <div id="bus2">
+                    <a id="busNum"></a>
+                    <a id="busName"></a>
+                    <a id="busTime"></a>
+                    <a id="busTime2"></a>
+                </div>
+                ----------------------------------------------------------------------
+                <div id="bus3">
+                    <a id="busNum"></a>
+                    <a id="busName"></a>
+                    <a id="busTime"></a>
+                    <a id="busTime2"></a>
+                </div>
+                <div id="bus4">
+                    <a id="busNum"></a>
+                    <a id="busName"></a>
+                    <a id="busTime"></a>
+                    <a id="busTime2"></a>
+                </div>
+                
+            </div>
+            
+        </div>
+      </div> 
+    
+    <script src="./script.js"></script> 
+    
+</body>
+</html>
