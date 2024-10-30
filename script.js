@@ -23,7 +23,7 @@ function updateClock(clock) {
     const formattedDateTime = `${dayOfWeek}, ${formattedDate}, ${formattedTime}`;
 
     // Add IST time
-    const istTime = new Date(currentDate.getTime() + 3.5 * 60 * 60 * 1000);
+    const istTime = new Date(currentDate.getTime() + 4.5 * 60 * 60 * 1000);
     const formattedIST = istTime.toLocaleTimeString("en-GB", {
         hour12: false,
         hour: "2-digit",
