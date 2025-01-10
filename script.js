@@ -1,3 +1,13 @@
+// export const WL_API_KEY_DEV = '6qkYCWmnCN27xxfi' // Development-key to transmit as 'sender' parameter for api requests at the realtime data api from Wiener Linien. Restricted to 100 requests per minute.
+// export const WL_API_KEY = 'VxFSXGDhGJm59LWY' // Key to transmit as 'sender' parameter for api requests at the realtime data api from Wiener Linien
+// export const WL_API_EXAMPLE_URL = 'http://www.wienerlinien.at/ogd_realtime/monitor?rbl=147&activateTrafficInfo=stoerungkurz&activateTrafficInfo=stoerunglang&activateTrafficInfo=aufzugsinfo&sender='
+// export const WL_API_BASE_URL = 'http://www.wienerlinien.at/ogd_realtime' // from http://data.wien.gv.at/pdf/wienerlinien-echtzeitdaten-dokumentation.pdf
+// export const CORS_DOMAIN = 'https://cors-anywhere.herokuapp.com/' //
+
+
+// http://localhost:8080/
+// http://www.wienerlinien.at/ogd_realtime/monitor?&activeTrafficInfo=${activeTrafficInfo}&sender=6qkYCWmnCN27xxfi&rbl=1894
+
 var clockElement = document.getElementById("atclock");
 
 function updateClock(clock) {
@@ -104,59 +114,66 @@ function homeLocation(){
 homeLocation();
 
 
+// Departures
+async function fetchDepartures() {
+    // http://www.wienerlinien.at/ogd_realtime/monitor?&activeTrafficInfo=${activeTrafficInfo}&sender=6qkYCWmnCN27xxfi&rbl=1894
+    // const response = await fetch(`http://www.wienerlinien.at/ogd_realtime/monitor?&activeTrafficInfo=stoerunglang&sender=6qkYCWmnCN27xxfi&rbl=${stopNum}`);
 
-
-
-// Departures (from wienerlinien)
-async function fetchDepartures(stopNum, busName) {
-    const response = await fetch(`https://www.wienerlinien.at/ogd_realtime/monitor?stopId=${stopNum}`);
+    // https://www.data.gv.at/katalog/en/application/3b30087e-8454-4706-b649-a924660d64ff#views
+    const response = await fetch(`https://vtapi.floscodes.net/monitor/?line=66A&station=Wienerfeld&towards=Reumannplatz&countdown&geodata`);
     const data = await response.json();
-    const departures = data.data.monitors[0].lines[0].departures.departure;
-    
-    wl_busNum = departures[0].vehicle.name;
-    wl_busName = departures[0].vehicle.towards;
-    wl_busTime = departures[0].departureTime.countdown;
-    wl_busTime2 = departures[1].departureTime.countdown;
-    
 
-    if(busName == '17a_o'){
-        document.getElementById("bus1").querySelector("#busNum").innerHTML = wl_busNum;
-        document.getElementById("bus1").querySelector("#busName").innerHTML = wl_busName;
-        document.getElementById("bus1").querySelector("#busTime").innerHTML = wl_busTime + " min";
-        document.getElementById("bus1").querySelector("#busTime2").innerHTML = wl_busTime2 + " min";
-    }
-    else if(busName == '17a_i'){
-        document.getElementById("bus2").querySelector("#busNum").innerHTML = wl_busNum;
-        document.getElementById("bus2").querySelector("#busName").innerHTML = wl_busName;
-        document.getElementById("bus2").querySelector("#busTime").innerHTML = wl_busTime + " min";
-        document.getElementById("bus2").querySelector("#busTime2").innerHTML = wl_busTime2 + " min";
-    }
-    else if(busName == '66a_r'){
-        document.getElementById("bus3").querySelector("#busNum").innerHTML = wl_busNum;
-        document.getElementById("bus3").querySelector("#busName").innerHTML = wl_busName;
-        document.getElementById("bus3").querySelector("#busTime").innerHTML = wl_busTime + " min";  
-        document.getElementById("bus3").querySelector("#busTime2").innerHTML = wl_busTime2 + " min";                  
-    }
-    else if(busName == '66a_l'){
-        document.getElementById("bus4").querySelector("#busNum").innerHTML = wl_busNum;
-        document.getElementById("bus4").querySelector("#busName").innerHTML = wl_busName;
-        document.getElementById("bus4").querySelector("#busTime").innerHTML = wl_busTime + " min";  
-        document.getElementById("bus4").querySelector("#busTime2").innerHTML = wl_busTime2 + " min";            
-    }
-    
+    if (Array.isArray(data)) {
+        data.forEach(item => {
+            // console.log(item.geodata.lat)
+            if (item.station === "Wienerfeld" && item.line === "17A" && item.towards === "Oberlaa U") {
+                document.getElementById("bus1").querySelector("#busNum").innerHTML = item.line;
+                document.getElementById("bus1").querySelector("#busName").innerHTML = item.towards;
+                document.getElementById("bus1").querySelector("#busTime").innerHTML = item.countdown[0] + " min";
+                document.getElementById("bus1").querySelector("#busTime2").innerHTML = item.countdown[1] + " min";
+            }
+            else if (item.station === "Wienerfeld" && item.line === "17A" && item.towards === "Inzersdorf, Birostraße" && item.geodata.lat === 48.1527217) {
+                document.getElementById("bus2").querySelector("#busNum").innerHTML = item.line;
+                document.getElementById("bus2").querySelector("#busName").innerHTML = item.towards;
+                document.getElementById("bus2").querySelector("#busTime").innerHTML = item.countdown[0] + " min";
+                document.getElementById("bus2").querySelector("#busTime2").innerHTML = item.countdown[1] + " min";
+            }
+            else if (item.station === "Wienerfeld" && item.line === "66A" && item.towards === "Reumannplatz U") {
+                document.getElementById("bus3").querySelector("#busNum").innerHTML = item.line;
+                document.getElementById("bus3").querySelector("#busName").innerHTML = item.towards;
+                document.getElementById("bus3").querySelector("#busTime").innerHTML = item.countdown[0] + " min";
+                document.getElementById("bus3").querySelector("#busTime2").innerHTML = item.countdown[1] + " min";
+            }
+            else if (item.station === "Wienerfeld" && item.line === "66A" && item.towards === "Liesing S") {
+                document.getElementById("bus4").querySelector("#busNum").innerHTML = item.line;
+                document.getElementById("bus4").querySelector("#busName").innerHTML = item.towards;
+                document.getElementById("bus4").querySelector("#busTime").innerHTML = item.countdown[0] + " min";
+                document.getElementById("bus4").querySelector("#busTime2").innerHTML = item.countdown[1] + " min";
+            }                 
+        });
+    }    
 }
 
-
+let refreshRate = 30;
+const updateSeconds = () => {
+    document.getElementById('refreshRate').innerHTML = " "+ refreshRate;
+    refreshRate--;
+    if (refreshRate < 0) {
+        refreshRate = 30;
+    }
+};
 
 
 setInterval(() => {
-    fetchDepartures(1958, '66a_l');
-    fetchDepartures(1971, '66a_r');
-    fetchDepartures(1894, '17a_o');
-    fetchDepartures(2919, '17a_i');
-}, 10000);  //update every 10sec
+    fetchDepartures();
+}, 30000);  //update every 30sec
 
+setInterval(() => {
+    fetchDepartures();
+    refreshRate = 30; // Reset the seconds after fetching
+}, 30000);
 
+setInterval(updateSeconds, 1000); // Update the refreshRate every second
 
 
 // Energy Data
@@ -246,7 +263,7 @@ document.getElementById('btn').addEventListener('click', function() {
 });
 
 document.getElementById('btn2').addEventListener('click', function() {
-    var energyDiv = document.getElementById('iframe2');
+    var energyDiv = document.getElementById('smartMeterFrame');
     if (energyDiv.style.display === 'block') {
         energyDiv.style.display = 'none';
     } else {
@@ -333,7 +350,7 @@ setInterval(() => {
 
 setInterval(() => {
     d = new Date();
-    htime = d.getHours() + 3;
+    htime = d.getHours() + 4;
     mtime = d.getMinutes() + 30;
     stime = d.getSeconds();
     hrotation = 30*htime + mtime/2;

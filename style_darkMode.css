@@ -22,6 +22,7 @@ body{
 
 
 #flexContainer{
+  /* display: none; */
   text-align: center;
   margin: 0 auto;
   margin-top: 20px;
@@ -47,6 +48,7 @@ body{
 #energy {
   height: 50%;
   position: relative;
+
 }
 
 
@@ -109,13 +111,13 @@ body{
   letter-spacing: 2px;
 }
 
-#searchDiv a:hover, #suggestions:hover, #frequentDestination p:hover{
+#searchDiv a:hover, #suggestions:hover, #frequentDestination p:hover, #btn:hover, #btn2:hover{
   cursor: pointer;
 }
 
 /*Map Window*/
 #mapFrame{
-  /* display: none; */
+  display: none;
   border: none;
   padding: 60px;
   width: 100%;
@@ -207,7 +209,7 @@ input:checked + .slider:before {
 /* Analog Clock */
 #clockDiv{
   display: block;  
-  display: none;  
+  /* display: none;   */
   margin-top: 20px;
   margin-bottom: 160px;
   color: #000000;
@@ -272,6 +274,12 @@ padding-left: 30%;
 color: #ffffff;
 }
 
+#nearestDepartures p{
+  display: inline-table;
+  color: #888787;
+  padding-left: 43%;
+}
+
 #bus1, #bus2, #bus3, #bus4{
   display: flex;
   padding: 0.5%;
@@ -287,6 +295,7 @@ color: #ffffff;
   padding: 1%;
   background-color: #0a295d;
 }
+
 #busName{
   width: 30%;
   /* font-weight: bold; */

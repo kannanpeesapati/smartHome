@@ -114,11 +114,12 @@ body{
 }
 
 /*Map Window*/
-#map{
+#mapFrame{
+  display: none;
   width: 100%;
   margin-top: 20px;
   padding: 100px;
-  /* display: none; */
+  
 }
 
 #directionsPanel .adp-warnbox,#directionsPanel .adp-agencies{
@@ -198,7 +199,7 @@ input:checked + .slider:before {
 /* Analog Clock */
 #clockDiv{
   display: block;  
-  /* display: none;   */
+  display: none;  
   margin-top: 20px;
   margin-bottom: 20px;
   color: #ffffff;
