@@ -115,7 +115,7 @@ body{
 
 /*Map Window*/
 #mapFrame{
-  display: none;
+/*   display: none; */
   width: 100%;
   margin-top: 20px;
   padding: 100px;
@@ -259,7 +259,7 @@ input:checked + .slider:before {
 
 #nearestDepartures{
 padding-top: 10%;
-padding-left: 30%;
+padding-left: 10%;
 color: #22a6b3;
 }
 #bus1, #bus2, #bus3, #bus4{
