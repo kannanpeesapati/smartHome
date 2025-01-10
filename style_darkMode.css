@@ -270,7 +270,7 @@ input:checked + .slider:before {
 
 #nearestDepartures{
 padding-top: 10%;
-padding-left: 30%;
+padding-left: 10%;
 color: #ffffff;
 }
 
@@ -297,20 +297,20 @@ color: #ffffff;
 }
 
 #busName{
-  width: 30%;
+  width: 50%;
   /* font-weight: bold; */
   color: #ffffff;
   padding: 1%;  
 }
 #busTime{
-  width: 12%;
+  width: 15%;
   font-weight: bold;
   color: #ffffff;
   border-radius: 5px;
   padding: 1%;  
 }
 #busTime2{
-  width: 12%;
+  width: 15%;
   font-weight: bold;
   color: #888787;
   border-radius: 5px;
