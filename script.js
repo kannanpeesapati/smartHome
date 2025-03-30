@@ -350,7 +350,7 @@ setInterval(() => {
 
 setInterval(() => {
     d = new Date();
-    htime = d.getHours() + 4;
+    htime = d.getHours() + 3;
     mtime = d.getMinutes() + 30;
     stime = d.getSeconds();
     hrotation = 30*htime + mtime/2;
